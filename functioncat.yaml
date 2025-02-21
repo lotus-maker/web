@@ -1,0 +1,33 @@
+system: 1.0.0
+info:
+  name: vitesse-app
+  vars:
+    NODE_ENV:
+      description: 'Node.js 环境变量'
+      default: 'production'
+envs:
+  dev:
+    branch: dev
+  prod:
+    branch: main
+routes:
+  main_env: prod
+  main_app: vitesse
+apps:
+  vitesse:
+    type: web_frontend
+    envs:
+      dev:
+        build:
+          root_path: ./
+          script: pnpm install; pnpm build
+        provision:
+          root_path: dist
+          type: static
+      prod:
+        build:
+          root_path: ./
+          script: pnpm install; pnpm build
+        provision:
+          root_path: dist
+          type: static
